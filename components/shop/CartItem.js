@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 10,
   },
+  itemData: {
+    flexDirection: 'row'
+  },    
   quantity: {
     fontFamily: "open-sans",
     color: "#888",

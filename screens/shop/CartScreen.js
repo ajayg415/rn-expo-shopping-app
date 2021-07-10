@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, FlatList, StyleSheet, Button } from "react-native";
 import { connect } from "react-redux";
 
+import { removeFromCart } from "../../store/actions/cart";
 import CartItem from "../../components/shop/CartItem";
 import Colors from "../../constants/Colors";
 
@@ -10,7 +11,11 @@ const mapStateToProps = (state) => ({
   cartAmount: state.cart.totalAMount,
 });
 
-const CartScreen = ({ cartItems, cartAmount }) => {
+const mapDispatchToProps = {
+  removeFromCart,
+};
+
+const CartScreen = ({ cartItems, cartAmount, removeFromCart }) => {
   let items = [];
   for (const key in cartItems) {
     items.push({
@@ -26,18 +31,27 @@ const CartScreen = ({ cartItems, cartAmount }) => {
     <View style={styles.screen}>
       <View style={styles.summary}>
         <Text style={styles.summaryText}>
-          Total: <Text style={styles.amount}>${cartAmount.toFixed(2)}</Text>
+          Total: <Text style={styles.amount}>${Math.abs(cartAmount.toFixed(2))}</Text>
         </Text>
         <Button
           title="Order Now"
           color={Colors.accent}
-          disabled={cartAmount === 0}
+          disabled={cartAmount < 1}
         />
       </View>
       <FlatList
         data={items}
         renderItem={(itemData) => (
-          <CartItem item={itemData.item} onRemove={() => {}} />
+          <CartItem
+            item={itemData.item}
+            onRemove={() =>
+              removeFromCart({
+                price: itemData.item.price,
+                id: itemData.item.id,
+                quantity: itemData.item.quantity
+              })
+            }
+          />
         )}
       />
     </View>
@@ -73,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps)(CartScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

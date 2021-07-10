@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
-const ProductsOverviewScreen = () => {
+const ProductsOverviewScreen = ({}) => {
   return (
     <View style={styles.screen}>
       <Text>ProductsOverviewScreen</Text>

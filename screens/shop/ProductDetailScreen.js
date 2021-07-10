@@ -7,10 +7,16 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import { connect } from "react-redux";
 
 import Colors from "../../constants/Colors";
+import {addToCart} from '../../store/actions/cart'
 
-const ProductDetailScreen = ({ navigation, route }) => {
+const mapDispatchToProps = {
+    addToCart
+  }
+
+const ProductDetailScreen = ({ navigation, route, addToCart }) => {
   const { product } = route.params;
   const { imageUrl, title, description, price } = product;
 
@@ -22,7 +28,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
     <ScrollView>
       <Image source={{ uri: imageUrl }} style={styles.image} />
       <View style={styles.actions}>
-        <Button title="Add To Cart" onPress={() => {}} color={Colors.primary} />
+        <Button title="Add To Cart" onPress={() => addToCart(product)} color={Colors.primary} />
       </View>
       <Text style={styles.price}>${price.toFixed(2)}</Text>
       <Text style={styles.description}>{description}</Text>
@@ -48,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductDetailScreen;
+export default connect(null, mapDispatchToProps)(ProductDetailScreen);

@@ -3,12 +3,17 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { connect } from "react-redux";
 
 import ProductItem from "../../components/shop/ProductItem";
+import {addToCart} from '../../store/actions/cart'
 
 const mapStateToProps = (state) => ({
   products: state.products.availableProducts,
 });
 
-const ProductsOverviewScreen = ({ products, navigation }) => {
+const mapDispatchToProps = {
+  addToCart
+}
+
+const ProductsOverviewScreen = ({ products, navigation, addToCart }) => {
   return (
     <View style={styles.screen}>
       <FlatList
@@ -22,7 +27,7 @@ const ProductsOverviewScreen = ({ products, navigation }) => {
                 product: itemData.item,
               });
             }}
-            onAddToCart={() => {}}
+            onAddToCart={() => addToCart(itemData.item)}
           />
         )}
       />
@@ -34,4 +39,4 @@ const styles = StyleSheet.create({
   screen: {},
 });
 
-export default connect(mapStateToProps)(ProductsOverviewScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsOverviewScreen);

@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Button, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+} from "react-native";
 
 import Colors from "../../constants/Colors";
 
@@ -31,8 +38,14 @@ const styles = StyleSheet.create({
     color: "#888",
     textAlign: "center",
     marginVertical: 20,
+    fontFamily: "open-sans-bold",
   },
-  description: { fontSize: 14, textAlign: "center", marginHorizontal: 20 },
+  description: {
+    fontSize: 14,
+    textAlign: "center",
+    marginHorizontal: 20,
+    fontFamily: "open-sans",
+  },
 });
 
 export default ProductDetailScreen;

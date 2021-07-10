@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, FlatList, StyleSheet, Button } from "react-native";
 import { connect } from "react-redux";
 
+import CartItem from "../../components/shop/CartItem";
 import Colors from "../../constants/Colors";
 
 const mapStateToProps = (state) => ({
@@ -33,9 +34,12 @@ const CartScreen = ({ cartItems, cartAmount }) => {
           disabled={cartAmount === 0}
         />
       </View>
-      <FlatList data={items} renderItem={itemData => {
-          return <Text>{itemData.item.title}</Text>
-      }}/>
+      <FlatList
+        data={items}
+        renderItem={(itemData) => (
+          <CartItem item={itemData.item} onRemove={() => {}} />
+        )}
+      />
     </View>
   );
 };

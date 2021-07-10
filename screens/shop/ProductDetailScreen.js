@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {
   View,
   Button,
@@ -8,13 +8,15 @@ import {
   Image,
 } from "react-native";
 import { connect } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import Colors from "../../constants/Colors";
-import {addToCart} from '../../store/actions/cart'
+import { addToCart } from "../../store/actions/cart";
+import HeaderButton from '../../components/UI/HeaderButton'
 
 const mapDispatchToProps = {
-    addToCart
-  }
+  addToCart,
+};
 
 const ProductDetailScreen = ({ navigation, route, addToCart }) => {
   const { product } = route.params;
@@ -24,11 +26,26 @@ const ProductDetailScreen = ({ navigation, route, addToCart }) => {
     navigation.setOptions({ title });
   }, []);
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title,
+      headerRight: () => (
+        <HeaderButtons component={HeaderButton}>
+          <Item title="cart" iconName={"md-cart"} onPress={() => navigation.push('Cart')} />
+        </HeaderButtons>
+      ),
+    });
+  }, [navigation]);
+
   return (
     <ScrollView>
       <Image source={{ uri: imageUrl }} style={styles.image} />
       <View style={styles.actions}>
-        <Button title="Add To Cart" onPress={() => addToCart(product)} color={Colors.primary} />
+        <Button
+          title="Add To Cart"
+          onPress={() => addToCart(product)}
+          color={Colors.primary}
+        />
       </View>
       <Text style={styles.price}>${price.toFixed(2)}</Text>
       <Text style={styles.description}>{description}</Text>

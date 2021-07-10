@@ -1,19 +1,35 @@
-import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import React, { useLayoutEffect } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
 import { connect } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import ProductItem from "../../components/shop/ProductItem";
-import {addToCart} from '../../store/actions/cart'
+import { addToCart } from "../../store/actions/cart";
+import HeaderButton from '../../components/UI/HeaderButton'
 
 const mapStateToProps = (state) => ({
   products: state.products.availableProducts,
 });
 
 const mapDispatchToProps = {
-  addToCart
-}
+  addToCart,
+};
 
 const ProductsOverviewScreen = ({ products, navigation, addToCart }) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons component={HeaderButton}>
+          <Item
+            title="cart"
+            iconName={"md-cart"}
+            onPress={() => navigation.push('Cart')}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.screen}>
       <FlatList
@@ -39,4 +55,7 @@ const styles = StyleSheet.create({
   screen: {},
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsOverviewScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductsOverviewScreen);

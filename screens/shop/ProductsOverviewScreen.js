@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
   products: state.products.availableProducts,
 });
 
-const ProductsOverviewScreen = ({ products }) => {
+const ProductsOverviewScreen = ({ products, navigation }) => {
   return (
     <View style={styles.screen}>
       <FlatList
@@ -17,7 +17,12 @@ const ProductsOverviewScreen = ({ products }) => {
         renderItem={(itemData) => (
           <ProductItem
             item={itemData.item}
-            onViewDetails={() => {}}
+            onViewDetails={() => {
+              navigation.navigate("Details", {
+                productId: itemData.item.id,
+                title: itemData.item.title,
+              });
+            }}
             onAddToCart={() => {}}
           />
         )}

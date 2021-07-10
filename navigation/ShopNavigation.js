@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
+import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import Colors from "../constants/Colors";
 
 const Stack = createStackNavigator();
@@ -12,8 +13,21 @@ const ShopNavigation = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
-        name="Products Overview Screen"
+        name="Overview"
         component={ProductsOverviewScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: Colors.primary,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Details"
+        component={ProductDetailScreen}
         options={{
           headerStyle: {
             backgroundColor: Colors.primary,

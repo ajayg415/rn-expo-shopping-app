@@ -1,32 +1,44 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
+} from "react-native";
 
 import Colors from "../../constants/Colors";
 
-const ProductItem = ({ item }) => {
-  console.log(item);
-  const {
-    id,
-    ownerId,
-    title,
-    imageUrl,
-    description,
-    price,
-    onViewDetails,
-    onAddToCart,
-  } = item;
+const ProductItem = ({ item, onViewDetails, onAddToCart }) => {
+  const { title, imageUrl, price } = item;
+  const TouchableComp =
+    Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;
+
   return (
-    <View style={styles.product}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
-      <View style={styles.details}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.price}>${price.toFixed(2)}</Text>
+    <TouchableComp onPress={onViewDetails}>
+      <View style={styles.product}>
+        <Image source={{ uri: imageUrl }} style={styles.image} />
+        <View style={styles.details}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.price}>${price.toFixed(2)}</Text>
+        </View>
+        <View style={styles.buttons}>
+          <Button
+            title="View Details"
+            onPress={onViewDetails}
+            color={Colors.primary}
+          />
+          <Button
+            title="Add To Cart"
+            onPress={onAddToCart}
+            color={Colors.accent}
+          />
+        </View>
       </View>
-      <View style={styles.buttons}>
-        <Button title="View Details" onPress={onViewDetails} color={Colors.primary}/>
-        <Button title="Add To Cart" onPress={onAddToCart} color={Colors.accent}/>
-      </View>
-    </View>
+    </TouchableComp>
   );
 };
 
@@ -45,7 +57,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "60%",
+    height: "50%",
   },
   details: {
     alignItems: "center",

@@ -1,11 +1,11 @@
 import React, { useLayoutEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { connect } from "react-redux";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
+// import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import ProductItem from "../../components/shop/ProductItem";
 import { addToCart } from "../../store/actions/cart";
-import HeaderButton from '../../components/UI/HeaderButton'
+import IconButton from "../../components/UI/IconButton";
 
 const mapStateToProps = (state) => ({
   products: state.products.availableProducts,
@@ -18,15 +18,7 @@ const mapDispatchToProps = {
 const ProductsOverviewScreen = ({ products, navigation, addToCart }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <HeaderButtons component={HeaderButton}>
-          <Item
-            title="cart"
-            iconName={"md-cart"}
-            onPress={() => navigation.push('Cart')}
-          />
-        </HeaderButtons>
-      ),
+      headerRight: () => <IconButton iconName={"md-cart"} onIconPress={() => navigation.push('Cart')} />,
     });
   }, [navigation]);
 

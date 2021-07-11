@@ -12,7 +12,7 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import Colors from "../../constants/Colors";
 import { addToCart } from "../../store/actions/cart";
-import HeaderButton from '../../components/UI/HeaderButton'
+import IconButton from "../../components/UI/IconButton";
 
 const mapDispatchToProps = {
   addToCart,
@@ -29,11 +29,7 @@ const ProductDetailScreen = ({ navigation, route, addToCart }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title,
-      headerRight: () => (
-        <HeaderButtons component={HeaderButton}>
-          <Item title="cart" iconName={"md-cart"} onPress={() => navigation.push('Cart')} />
-        </HeaderButtons>
-      ),
+      headerRight: () => <IconButton iconName="md-cart" onIconPress={() => navigation.push('Cart')} />,
     });
   }, [navigation]);
 

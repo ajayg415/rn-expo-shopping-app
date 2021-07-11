@@ -9,7 +9,6 @@ import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import CartScreen from "../screens/shop/CartScreen"
 
 import Colors from "../constants/Colors";
-import HeaderButton from "../components/UI/HeaderButton";
 
 const Stack = createStackNavigator();
 

@@ -2,7 +2,8 @@ import React from "react";
 import { View, Text, FlatList, StyleSheet, Button } from "react-native";
 import { connect } from "react-redux";
 
-import { removeFromCart } from "../../store/actions/cart";
+import { removeFromCart, removeAllItems } from "../../store/actions/cart";
+import {addOrder} from '../../store/actions/orders'
 import CartItem from "../../components/shop/CartItem";
 import Colors from "../../constants/Colors";
 
@@ -13,9 +14,16 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   removeFromCart,
+  removeAllItems,
+  addOrder
 };
 
-const CartScreen = ({ cartItems, cartAmount, removeFromCart, navigation }) => {
+const CartScreen = ({
+  cartItems,
+  cartAmount,
+  removeFromCart,
+  removeAllItems,
+}) => {
   let items = [];
   for (const key in cartItems) {
     items.push({
@@ -31,13 +39,17 @@ const CartScreen = ({ cartItems, cartAmount, removeFromCart, navigation }) => {
     <View style={styles.screen}>
       <View style={styles.summary}>
         <Text style={styles.summaryText}>
-          Total: <Text style={styles.amount}>${Math.abs(cartAmount.toFixed(2))}</Text>
+          Total:{" "}
+          <Text style={styles.amount}>${Math.abs(cartAmount.toFixed(2))}</Text>
         </Text>
         <Button
           title="Order Now"
           color={Colors.accent}
           disabled={cartAmount < 1}
-          onPress={() => navigation.openDrawer()}
+          onPress={() => {
+            addOrder(items, cartAmount)
+            removeAllItems()
+          }}
         />
       </View>
       <FlatList
@@ -49,7 +61,7 @@ const CartScreen = ({ cartItems, cartAmount, removeFromCart, navigation }) => {
               removeFromCart({
                 price: itemData.item.price,
                 id: itemData.item.id,
-                quantity: itemData.item.quantity
+                quantity: itemData.item.quantity,
               })
             }
           />

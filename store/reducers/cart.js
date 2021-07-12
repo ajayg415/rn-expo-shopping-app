@@ -1,5 +1,9 @@
 import CartItem from "../../models/cart-item";
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart";
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  REMOVE_ALL_ITEMS,
+} from "../actions/cart";
 
 const initialState = {
   items: {},
@@ -39,6 +43,8 @@ export default (state = initialState, action) => {
         totalAMount:
           state.totalAMount - action.product.price * action.product.quantity,
       };
+    case REMOVE_ALL_ITEMS:
+      return initialState;
     default:
       return initialState;
   }

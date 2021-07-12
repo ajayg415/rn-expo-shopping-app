@@ -30,6 +30,7 @@ const ProductDetailScreen = ({ navigation, route, addToCart }) => {
     navigation.setOptions({
       title,
       headerRight: () => <IconButton iconName="md-cart" onIconPress={() => navigation.push('Cart')} />,
+      headerLeft: () => <IconButton iconName="md-menu" onIconPress={() => navigation.openDrawer()} />,
     });
   }, [navigation]);
 

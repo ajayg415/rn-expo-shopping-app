@@ -15,7 +15,7 @@ const mapDispatchToProps = {
   removeFromCart,
 };
 
-const CartScreen = ({ cartItems, cartAmount, removeFromCart }) => {
+const CartScreen = ({ cartItems, cartAmount, removeFromCart, navigation }) => {
   let items = [];
   for (const key in cartItems) {
     items.push({
@@ -37,6 +37,7 @@ const CartScreen = ({ cartItems, cartAmount, removeFromCart }) => {
           title="Order Now"
           color={Colors.accent}
           disabled={cartAmount < 1}
+          onPress={() => navigation.openDrawer()}
         />
       </View>
       <FlatList

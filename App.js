@@ -3,15 +3,18 @@ import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import * as Fonts from "expo-font";
 import AppLoading from "expo-app-loading";
+import { NavigationContainer } from "@react-navigation/native";
 
 import productReducer from "./store/reducers/products";
 import cartReducer from "./store/reducers/cart";
+import OrderReducer from "./store/reducers/orders";
 
 import ShopNavigator from "./navigation/ShopNavigation";
 
 const rootReducer = combineReducers({
   products: productReducer,
   cart: cartReducer,
+  orders: OrderReducer,
 });
 
 const store = createStore(rootReducer);
@@ -37,7 +40,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <ShopNavigator />
+      <NavigationContainer>
+        <ShopNavigator />
+      </NavigationContainer>
     </Provider>
   );
 }

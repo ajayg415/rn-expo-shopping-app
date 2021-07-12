@@ -19,6 +19,7 @@ const ProductsOverviewScreen = ({ products, navigation, addToCart }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => <IconButton iconName={"md-cart"} onIconPress={() => navigation.push('Cart')} />,
+      headerLeft: () => <IconButton iconName="md-menu" onIconPress={() => navigation.openDrawer()} />,
     });
   }, [navigation]);
 

@@ -8,6 +8,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import UserProductsScreen from '../screens/user/UserProductsScreen'
+import EditProductScreen from '../screens/user/EditProductsScreen'
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import IconButton from "../components/UI/IconButton";
@@ -50,6 +51,20 @@ const stackNavigation = () => (
       component={CartScreen}
       options={{
         title: "Cart Screen",
+        headerStyle: {
+          backgroundColor: Colors.primary,
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    />
+    <Stack.Screen
+      name="EditProduct"
+      component={EditProductScreen}
+      options={{
+        title: "Edit Product Screen",
         headerStyle: {
           backgroundColor: Colors.primary,
         },

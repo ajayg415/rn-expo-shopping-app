@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { View, StyleSheet, FlatList, Button } from "react-native";
 import { connect } from "react-redux";
 
 import Colors from "../../constants/Colors";
 import ProductItem from "../../components/shop/ProductItem";
-import {deleteProduct} from '../../store/actions/products'
+import { deleteProduct } from "../../store/actions/products";
+import IconButton from "../../components/UI/IconButton";
 
 const mapStateFromProps = (state) => ({
   products: state.products.availableProducts,
 });
 
 const mapDispatchToProps = {
-    deleteProduct
-}
+  deleteProduct,
+};
 
-const UserProductsScreen = ({ products, deleteProduct }) => {
+const UserProductsScreen = ({ products, deleteProduct, navigation }) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <IconButton
+          iconName="md-menu"
+          onIconPress={() => navigation.toggleDrawer()}
+        />
+      ),
+      headerRight: () => (
+        <IconButton
+          iconName="md-create"
+          onIconPress={() => navigation.navigate('EditProduct')}
+        />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <FlatList
       data={products}
@@ -22,10 +40,26 @@ const UserProductsScreen = ({ products, deleteProduct }) => {
         return (
           <ProductItem
             item={itemData.item}
-            onSelect={() => {}}
+            onSelect={() =>
+              navigation.navigate("EditProduct", {
+                item: itemData.item,
+              })
+            }
           >
-              <Button onPress={() => {}} title="Edit" color={Colors.primary}/>
-              <Button onPress={() => deleteProduct(itemData.item.id)} title="Delete" color={Colors.accent}/>
+            <Button
+              onPress={() =>
+                navigation.navigate("EditProduct", {
+                  item: itemData.item,
+                })
+              }
+              title="Edit"
+              color={Colors.primary}
+            />
+            <Button
+              onPress={() => deleteProduct(itemData.item.id)}
+              title="Delete"
+              color={Colors.accent}
+            />
           </ProductItem>
         );
       }}
@@ -33,4 +67,7 @@ const UserProductsScreen = ({ products, deleteProduct }) => {
   );
 };
 
-export default connect(mapStateFromProps, mapDispatchToProps)(UserProductsScreen);
+export default connect(
+  mapStateFromProps,
+  mapDispatchToProps
+)(UserProductsScreen);

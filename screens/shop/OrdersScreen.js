@@ -2,6 +2,8 @@ import React from "react";
 import { FlatList, Text, View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
+import OrderItem from "../../components/shop/OrderItem";
+
 const mapStateToProps = (state) => ({
   orders: state.orders.orders,
 });
@@ -12,7 +14,12 @@ const OrdersScreen = ({ orders }) => {
       <FlatList
         data={orders}
         renderItem={(itemData) => {
-          return <Text>{itemData.item.totalAmount}</Text>;
+          return (
+            <OrderItem
+              amount={itemData.item.totalAmount}
+              date={itemData.item.readableDate}
+            />
+          );
         }}
       />
     </View>

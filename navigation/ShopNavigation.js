@@ -7,6 +7,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
+import UserProductsScreen from '../screens/user/UserProductsScreen'
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import IconButton from "../components/UI/IconButton";
@@ -84,6 +85,20 @@ const ShopNavigation = () => (
         drawerIcon: () => (
           <IconButton
             iconName="md-list"
+            onIconPress={() => navigation.openDrawer()}
+            iconColor={"blue"}
+          />
+        ),
+      }}
+    />
+    <Drawer.Screen
+      name="User Products"
+      component={UserProductsScreen}
+      options={{
+        drawerLabel: "User Products",
+        drawerIcon: () => (
+          <IconButton
+            iconName="md-create"
             onIconPress={() => navigation.openDrawer()}
             iconColor={"blue"}
           />

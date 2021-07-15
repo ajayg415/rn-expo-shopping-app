@@ -4,12 +4,17 @@ import { connect } from "react-redux";
 
 import Colors from "../../constants/Colors";
 import ProductItem from "../../components/shop/ProductItem";
+import {deleteProduct} from '../../store/actions/products'
 
 const mapStateFromProps = (state) => ({
   products: state.products.availableProducts,
 });
 
-const UserProductsScreen = ({ products }) => {
+const mapDispatchToProps = {
+    deleteProduct
+}
+
+const UserProductsScreen = ({ products, deleteProduct }) => {
   return (
     <FlatList
       data={products}
@@ -20,7 +25,7 @@ const UserProductsScreen = ({ products }) => {
             onSelect={() => {}}
           >
               <Button onPress={() => {}} title="Edit" color={Colors.primary}/>
-              <Button onPress={() => {}} title="Delete" color={Colors.accent}/>
+              <Button onPress={() => deleteProduct(itemData.item.id)} title="Delete" color={Colors.accent}/>
           </ProductItem>
         );
       }}
@@ -28,4 +33,4 @@ const UserProductsScreen = ({ products }) => {
   );
 };
 
-export default connect(mapStateFromProps)(UserProductsScreen);
+export default connect(mapStateFromProps, mapDispatchToProps)(UserProductsScreen);

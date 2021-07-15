@@ -4,6 +4,7 @@ import {
   REMOVE_FROM_CART,
   REMOVE_ALL_ITEMS,
 } from "../actions/cart";
+import { DELETE_PRODUCT } from "../actions/products";
 
 const initialState = {
   items: {},
@@ -43,6 +44,18 @@ export default (state = initialState, action) => {
         totalAMount:
           state.totalAMount - action.product.price * action.product.quantity,
       };
+    case DELETE_PRODUCT:
+      if(!state.items[action.id]){
+        return state; 
+      }
+      const updatedItems = {...state.items}
+      const itemTotal = state.items[action.id].sum
+      delete updatedItems[action.id]
+      return {
+        ...state,
+        item: updatedItems,
+        totalAMount: state.totalAMount - itemTotal
+      }
     case REMOVE_ALL_ITEMS:
       return initialState;
     default:

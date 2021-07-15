@@ -1,7 +1,8 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Button } from "react-native";
 import { connect } from "react-redux";
 
+import Colors from "../../constants/Colors";
 import ProductItem from "../../components/shop/ProductItem";
 
 const mapStateFromProps = (state) => ({
@@ -16,9 +17,11 @@ const UserProductsScreen = ({ products }) => {
         return (
           <ProductItem
             item={itemData.item}
-            onViewDetails={() => {}}
-            onAddToCart={() => {}}
-          />
+            onSelect={() => {}}
+          >
+              <Button onPress={() => {}} title="Edit" color={Colors.primary}/>
+              <Button onPress={() => {}} title="Delete" color={Colors.accent}/>
+          </ProductItem>
         );
       }}
     />

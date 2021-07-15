@@ -12,13 +12,13 @@ import {
 
 import Colors from "../../constants/Colors";
 
-const ProductItem = ({ item, onViewDetails, onAddToCart }) => {
+const ProductItem = ({ item, onSelect, children }) => {
   const { title, imageUrl, price } = item;
   const TouchableComp =
     Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;
 
   return (
-    <TouchableComp onPress={onViewDetails}>
+    <TouchableComp onPress={onSelect}>
       <View style={styles.product}>
         <Image source={{ uri: imageUrl }} style={styles.image} />
         <View style={styles.details}>
@@ -26,16 +26,7 @@ const ProductItem = ({ item, onViewDetails, onAddToCart }) => {
           <Text style={styles.price}>${price.toFixed(2)}</Text>
         </View>
         <View style={styles.buttons}>
-          <Button
-            title="View Details"
-            onPress={onViewDetails}
-            color={Colors.primary}
-          />
-          <Button
-            title="Add To Cart"
-            onPress={onAddToCart}
-            color={Colors.accent}
-          />
+          {children}
         </View>
       </View>
     </TouchableComp>

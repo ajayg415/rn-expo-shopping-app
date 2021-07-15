@@ -3,7 +3,7 @@ class Order {
     this.id = id;
     this.items = items;
     this.totalAmount = totalAmount;
-    tis.date = date;
+    this.date = date;
   }
 }
 

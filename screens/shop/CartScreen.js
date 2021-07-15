@@ -23,6 +23,7 @@ const CartScreen = ({
   cartAmount,
   removeFromCart,
   removeAllItems,
+  addOrder,
 }) => {
   let items = [];
   for (const key in cartItems) {

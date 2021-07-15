@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList, Text, View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => ({
@@ -7,15 +7,22 @@ const mapStateToProps = (state) => ({
 });
 
 const OrdersScreen = ({ orders }) => {
-    console.log({orders})
   return (
-    <FlatList
-      data={orders}
-      renderItem={(itemData) => {
-        return <Text>{itemData.item.totalAmount}</Text>;
-      }}
-    />
+    <View style={styles.screen}>
+      <FlatList
+        data={orders}
+        renderItem={(itemData) => {
+          return <Text>{itemData.item.totalAmount}</Text>;
+        }}
+      />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    marginTop: 50,
+  },
+});
 
 export default connect(mapStateToProps)(OrdersScreen);

@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const CartItem = ({ item, onRemove }) => {
-    const {quantity, title, price} = item
+const CartItem = ({ item, onRemove, deletable = true }) => {
+  const { quantity, title, price } = item;
   return (
     <View style={styles.cardItem}>
       <View style={styles.itemData}>
@@ -12,9 +12,11 @@ const CartItem = ({ item, onRemove }) => {
       </View>
       <View style={styles.itemData}>
         <Text style={styles.amt}>${price.toFixed(2)}</Text>
-        <TouchableOpacity onPress={onRemove} style={styles.deleteBtn}>
-          <Ionicons name={"md-trash"} size={23} color={"red"} />
-        </TouchableOpacity>
+        {deletable && (
+          <TouchableOpacity onPress={onRemove} style={styles.deleteBtn}>
+            <Ionicons name={"md-trash"} size={23} color={"red"} />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -30,8 +32,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   itemData: {
-    flexDirection: 'row'
-  },    
+    flexDirection: "row",
+  },
   quantity: {
     fontFamily: "open-sans",
     color: "#888",

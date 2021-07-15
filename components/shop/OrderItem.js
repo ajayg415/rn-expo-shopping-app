@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
+import { Item } from "react-navigation-header-buttons";
 
 import Colors from "../../constants/Colors";
 import CartItem from "./CartItem";
 
-const OrderItem = ({ amount, date }) => {
-    console.log({amount})
-    console.log({date})
+const OrderItem = ({ amount, date, items }) => {
+  const [showDetails, setShowDetails] = useState(false);
   return (
     <View style={styles.screen}>
       <View style={styles.summary}>
         <Text style={styles.totalAmount}>${amount.toFixed(2)}</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
-      <Button title="Show Details" color={Colors.primary} />
+      <Button
+        title={showDetails ? "Hide Details" : "Show Details"}
+        color={Colors.primary}
+        onPress={() => setShowDetails((pre) => !pre)}
+      />
+      {showDetails && (
+        <View style={styles.viewDetails}>
+          {items.map((item) => {
+            return (
+              <CartItem
+                item={item}
+                onRemove={() => {}}
+                deletable={false}
+                key={item.id}
+              />
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 };
@@ -30,7 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     margin: 20,
     padding: 10,
-    alignItems: 'center'
+    alignItems: "center",
   },
   summary: {
     flexDirection: "row",
@@ -48,6 +66,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#888",
   },
+  viewDetails: {
+    width: '100%'
+  }
 });
 
 export default OrderItem;
